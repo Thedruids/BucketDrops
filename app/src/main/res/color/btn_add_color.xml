@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--A selector is used to provide two different text colors to the button when it is pressed, state pressed identifies when the button is pressed.-->
+    <item android:color="@color/dark_blue" android:state_pressed="true"/>
+
+    <!--By default, the color of the text will be white-->
+    <item android:color="@color/white"/>
+
+</selector>
