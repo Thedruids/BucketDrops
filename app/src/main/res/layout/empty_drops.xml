@@ -9,7 +9,7 @@
         android:layout_height="@dimen/iv_logo_size"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/iv_logo_margin"
-        android:src="@drawable/logo_large" />
+        android:src="@drawable/logolarge" />
 
     <!-- The background references an XML file which will make the button transparent as well as change the border color -->
     <Button
