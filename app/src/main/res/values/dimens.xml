@@ -17,6 +17,8 @@
     <!-- Logo margin and size -->
     <dimen name="iv_logo_size">192dp</dimen>
     <dimen name="iv_logo_margin">84dp</dimen>
+    <dimen name="tv_title_vertical_margin">36dp</dimen>
+    <dimen name="tv_title_font_size">18sp</dimen>
 
 
 </resources>

@@ -28,9 +28,12 @@ public class ActivityMain extends AppCompatActivity {
         });
 
         setSupportActionBar(mToolbar);
+        //This is the method call for the glide background initialisation.
         initBackgroundImage();
     }
 
+    //When the size of the image exceeds the RAM of the emulator, it is necessary to use a program like Glide to load the image otherwise the program will crash
+    //This means that the activity must call a method that loads the image as opposed to declaring the image in the XML, it will require an imageview from the XML though.
     private void initBackgroundImage(){
         ImageView background = (ImageView) findViewById(R.id.iv_background);
         assert background != null : "Background image not found";
