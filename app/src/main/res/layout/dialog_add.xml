@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
+        android:singleLine="true"
         android:hint="@string/hint_et_drop"
         android:padding="16dp"/>
 
