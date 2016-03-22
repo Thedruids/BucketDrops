@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import thomas.bucketdrops.adapters.AdapterDrops;
+
 public class ActivityMain extends AppCompatActivity {
 
     Toolbar mToolbar;
@@ -23,6 +25,7 @@ public class ActivityMain extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mBtnAdd = (Button) findViewById(R.id.btn_add);
         mRecylcer = (RecyclerView) findViewById(R.id.rv_drops);
+        mRecylcer.setAdapter(new AdapterDrops(this));
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
