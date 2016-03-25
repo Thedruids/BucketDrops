@@ -2,7 +2,7 @@ package thomas.bucketdrops;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -15,17 +15,21 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import thomas.bucketdrops.adapters.AdapterDrops;
+import thomas.bucketdrops.adapters.Divider;
 import thomas.bucketdrops.beans.Drop;
+import thomas.bucketdrops.widgets.BucketRecyclerView;
 
 public class ActivityMain extends AppCompatActivity {
 
+    public String TAG = "Thomas";
     Toolbar mToolbar;
     Button mBtnAdd;
-    RecyclerView mRecycler;
+    BucketRecyclerView mRecycler;
     Realm mRealm;
-    public String TAG = "Thomas";
     RealmResults<Drop> mResults;
+    View mEmptyView;
     AdapterDrops mAdapter;
+
 
 
     @Override
@@ -36,8 +40,12 @@ public class ActivityMain extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         mResults = mRealm.where(Drop.class).findAllAsync();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mEmptyView = findViewById(R.id.empty_drops);
         mBtnAdd = (Button) findViewById(R.id.btn_add);
-        mRecycler = (RecyclerView) findViewById(R.id.rv_drops);
+        mRecycler = (BucketRecyclerView) findViewById(R.id.rv_drops);
+        mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
+        mRecycler.hideIfEmpty(mToolbar);
+        mRecycler.showIfEmpty(mEmptyView);
         mAdapter = new AdapterDrops(this, mResults);
         mRecycler.setAdapter(mAdapter);
 
