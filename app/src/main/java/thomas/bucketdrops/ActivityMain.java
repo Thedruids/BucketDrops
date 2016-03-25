@@ -15,6 +15,7 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import thomas.bucketdrops.adapters.AdapterDrops;
+import thomas.bucketdrops.adapters.AddListener;
 import thomas.bucketdrops.adapters.Divider;
 import thomas.bucketdrops.beans.Drop;
 import thomas.bucketdrops.widgets.BucketRecyclerView;
@@ -29,6 +30,13 @@ public class ActivityMain extends AppCompatActivity {
     RealmResults<Drop> mResults;
     View mEmptyView;
     AdapterDrops mAdapter;
+
+    private AddListener mAddListener = new AddListener() {
+        @Override
+        public void add() {
+           showDialogAdd();
+        }
+    };
 
 
 
@@ -46,7 +54,7 @@ public class ActivityMain extends AppCompatActivity {
         mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
         mRecycler.hideIfEmpty(mToolbar);
         mRecycler.showIfEmpty(mEmptyView);
-        mAdapter = new AdapterDrops(this, mResults);
+        mAdapter = new AdapterDrops(this, mResults, mAddListener);
         mRecycler.setAdapter(mAdapter);
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {

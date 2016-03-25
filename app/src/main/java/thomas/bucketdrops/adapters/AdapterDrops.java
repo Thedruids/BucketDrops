@@ -21,11 +21,19 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private LayoutInflater mInflater;
     private RealmResults<Drop> mResults;
     public static final String TAG = "Thomas";
+    private AddListener mAddListener;
 
     public AdapterDrops(Context context, RealmResults<Drop> results) {
         mInflater = LayoutInflater.from(context);
         update(results);
     }
+
+    public AdapterDrops(Context context, RealmResults<Drop> results, AddListener listener) {
+        mInflater = LayoutInflater.from(context);
+        update(results);
+        mAddListener = listener;
+    }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -85,7 +93,7 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public static class FooterHolder extends RecyclerView.ViewHolder {
+    public class FooterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         Button mBtnAdd;
 
@@ -93,6 +101,12 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public FooterHolder(View itemView) {
             super(itemView);
             mBtnAdd = (Button) itemView.findViewById(R.id.btn_footer);
+            mBtnAdd.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mAddListener.add();
         }
     }
 
