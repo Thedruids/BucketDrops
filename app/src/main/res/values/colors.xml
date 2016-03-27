@@ -9,4 +9,5 @@
     <color name="white">#FFFFFF</color>
     <color name="bg_drop_row_dark">#BD8E79BB</color>
     <color name="bg_drop_row_light">#4A8E79BB</color>
+    <color name="bg_dialog">#E30D0028</color>
 </resources>

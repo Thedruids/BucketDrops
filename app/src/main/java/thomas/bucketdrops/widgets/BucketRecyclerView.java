@@ -70,6 +70,7 @@ public class BucketRecyclerView extends RecyclerView {
             } else {
 
                 Log.d("Thomas", "1 was called ");
+                Log.d("Thomas","Number of items: " + getAdapter().getItemCount());
                 //hide all the empty views
                 Util.showViews(mNonEmptyViews);
 

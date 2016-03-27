@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import io.realm.RealmResults;
 import thomas.bucketdrops.adapters.AdapterDrops;
 import thomas.bucketdrops.adapters.AddListener;
 import thomas.bucketdrops.adapters.Divider;
+import thomas.bucketdrops.adapters.SimpleTouchCallback;
 import thomas.bucketdrops.beans.Drop;
 import thomas.bucketdrops.widgets.BucketRecyclerView;
 
@@ -54,8 +56,11 @@ public class ActivityMain extends AppCompatActivity {
         mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
         mRecycler.hideIfEmpty(mToolbar);
         mRecycler.showIfEmpty(mEmptyView);
-        mAdapter = new AdapterDrops(this, mResults, mAddListener);
+        mAdapter = new AdapterDrops(this, mRealm, mResults, mAddListener);
         mRecycler.setAdapter(mAdapter);
+        SimpleTouchCallback callback = new SimpleTouchCallback(mAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(mRecycler);
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
