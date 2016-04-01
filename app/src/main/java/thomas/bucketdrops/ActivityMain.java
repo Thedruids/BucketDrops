@@ -57,7 +57,6 @@ public class ActivityMain extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         int filterOption = load();
         loadResults(filterOption);
-        mResults = mRealm.where(Drop.class).findAllAsync();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mEmptyView = findViewById(R.id.empty_drops);
         mBtnAdd = (Button) findViewById(R.id.btn_add);
