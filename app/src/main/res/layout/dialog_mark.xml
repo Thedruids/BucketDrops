@@ -27,6 +27,7 @@
         android:background="@null"
         android:text="Mark Completed"
         android:textSize="24sp"
+        android:textColor="@color/white"
         android:textAllCaps="false"/>
 
 </RelativeLayout>
