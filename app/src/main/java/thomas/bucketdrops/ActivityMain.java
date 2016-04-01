@@ -1,12 +1,11 @@
 package thomas.bucketdrops;
 
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +54,7 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRealm = Realm.getDefaultInstance();
-        int filterOption = load();
+        int filterOption = AppBucketDrops.load(this);
         loadResults(filterOption);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mEmptyView = findViewById(R.id.empty_drops);
@@ -85,7 +84,6 @@ public class ActivityMain extends AppCompatActivity {
     private RealmChangeListener mChangeListener = new RealmChangeListener() {
         @Override
         public void onChange() {
-            Log.d(TAG, "onChange: was called");
             mAdapter.update(mResults);
 
         }
@@ -125,23 +123,18 @@ public class ActivityMain extends AppCompatActivity {
 
             case R.id.action_sort_ascending_date:
                 filterOption = Filter.LEAST_TIME_LEFT;
-                save(Filter.LEAST_TIME_LEFT);
                 break;
 
             case R.id.action_sort_descending_date:
                 filterOption = Filter.MOST_TIME_LEFT;
-                save(Filter.MOST_TIME_LEFT);
                 break;
 
             case R.id.action_show_complete:
                 filterOption = Filter.COMPLETE;
-                save(Filter.COMPLETE);
-                Log.d("Thomas", "onOptionsItemSelected: Complete");
                 break;
 
             case R.id.action_show_incomplete:
                 filterOption = Filter.INCOMPLETE;
-                save(Filter.INCOMPLETE);
                 break;
 
             default:
@@ -149,41 +142,27 @@ public class ActivityMain extends AppCompatActivity {
                 break;
 
         }
+        AppBucketDrops.save(this, filterOption);
         loadResults(filterOption);
         return handled;
     }
 
 
-    private void save(int filterOption) {
-        SharedPreferences pref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("filter", filterOption);
-        editor.apply();
-    }
 
-    private int load() {
-        SharedPreferences pref = getPreferences(MODE_PRIVATE);
-        int filterOption = pref.getInt("filter", Filter.NONE);
-        return filterOption;
-    }
 
     private void loadResults(int filterOption) {
-        Log.d("Thomas", "loadResults: was called. " + filterOption);
         switch (filterOption) {
             case Filter.NONE:
                 mResults = mRealm.where(Drop.class).findAllAsync();
                 break;
             case Filter.LEAST_TIME_LEFT:
-                Log.d("Thomas", "loadResults: LEAST_TIME_LEFT was called " + filterOption);
                 mResults = mRealm.where(Drop.class).findAllSortedAsync("when");
                 break;
             case Filter.MOST_TIME_LEFT:
-                Log.d("Thomas", "loadResults: MOST_TIME_LEFT was called " + filterOption);
                 mResults = mRealm.where(Drop.class).findAllSortedAsync("when", Sort.DESCENDING);
                 break;
             case Filter.COMPLETE:
                 mResults = mRealm.where(Drop.class).equalTo("completed", true).findAllAsync();
-                Log.d("Thomas", "loadResults: was called, Filter.Complete ");
                 break;
             case Filter.INCOMPLETE:
                 mResults = mRealm.where(Drop.class).equalTo("completed", false).findAllAsync();
@@ -216,7 +195,6 @@ public class ActivityMain extends AppCompatActivity {
         dialog.setArguments(bundle);
         dialog.setCompleteListener(mCompleteListener);
         dialog.show(getSupportFragmentManager(), "Mark");
-        Log.d(TAG, "showDialogMark: was called");
     }
 
 

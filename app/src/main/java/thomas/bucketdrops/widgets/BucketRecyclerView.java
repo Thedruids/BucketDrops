@@ -4,7 +4,6 @@ package thomas.bucketdrops.widgets;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Arrays;
@@ -57,7 +56,6 @@ public class BucketRecyclerView extends RecyclerView {
     private void toggleViews() {
         if (getAdapter() !=null && !mEmptyViews.isEmpty() && !mNonEmptyViews.isEmpty()) {
             if (getAdapter().getItemCount() == 0) {
-                Log.d("Thomas", "ToggleViews: 0 was called ");
                 //show all the empty views
                 Util.showViews(mEmptyViews);
 
@@ -69,8 +67,6 @@ public class BucketRecyclerView extends RecyclerView {
 
             } else {
 
-                Log.d("Thomas", "1 was called ");
-                Log.d("Thomas","Number of items: " + getAdapter().getItemCount());
                 //hide all the empty views
                 Util.showViews(mNonEmptyViews);
 
