@@ -17,6 +17,12 @@ public class DialogMark extends DialogFragment {
     private ImageButton mBtnclose;
     private Button mBtnCompleted;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogTheme);
+    }
+
     private View.OnClickListener mBtnListener = new View.OnClickListener(){
 
         @Override

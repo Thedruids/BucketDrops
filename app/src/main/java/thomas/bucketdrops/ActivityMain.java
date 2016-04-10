@@ -24,6 +24,7 @@ import thomas.bucketdrops.adapters.CompleteListener;
 import thomas.bucketdrops.adapters.Divider;
 import thomas.bucketdrops.adapters.Filter;
 import thomas.bucketdrops.adapters.MarkListener;
+import thomas.bucketdrops.adapters.ResetListener;
 import thomas.bucketdrops.adapters.SimpleTouchCallback;
 import thomas.bucketdrops.beans.Drop;
 import thomas.bucketdrops.widgets.BucketRecyclerView;
@@ -63,7 +64,8 @@ public class ActivityMain extends AppCompatActivity {
         mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
         mRecycler.hideIfEmpty(mToolbar);
         mRecycler.showIfEmpty(mEmptyView);
-        mAdapter = new AdapterDrops(this, mRealm, mResults, mAddListener, mMarkListener);
+        mAdapter = new AdapterDrops(this, mRealm, mResults, mAddListener, mMarkListener, mResetListener);
+        mAdapter.setHasStableIds(true);
         mRecycler.setAdapter(mAdapter);
         SimpleTouchCallback callback = new SimpleTouchCallback(mAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -104,6 +106,14 @@ public class ActivityMain extends AppCompatActivity {
         }
     };
 
+    private ResetListener mResetListener = new ResetListener() {
+        @Override
+        public void onReset() {
+        AppBucketDrops.save(ActivityMain.this, Filter.NONE);
+            loadResults(Filter.NONE);
+        }
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -119,6 +129,10 @@ public class ActivityMain extends AppCompatActivity {
         switch (id) {
             case R.id.action_add:
                 showDialogAdd();
+                break;
+
+            case R.id.action_sort_none:
+                filterOption = Filter.NONE;
                 break;
 
             case R.id.action_sort_ascending_date:

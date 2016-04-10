@@ -27,6 +27,7 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public static final int ITEM = 0;
     public static final int NO_ITEM = 1;
     public static final int FOOTER = 2;
+    private final ResetListener mResetListener;
     private Context mContext;
 
 
@@ -44,16 +45,26 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         update(results);
     }*/
 
-    public AdapterDrops(Context context, Realm realm, RealmResults<Drop> results, AddListener listener, MarkListener markListener) {
+    public AdapterDrops(Context context, Realm realm, RealmResults<Drop> results, AddListener listener, MarkListener markListener, ResetListener resetListener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mRealm = realm;
         update(results);
         mMarkListener = markListener;
         mAddListener = listener;
-
+        mResetListener = resetListener;
     }
 
+
+    @Override
+    public long getItemId(int position) {
+
+        if (position < mResults.size()) {
+
+            return mResults.get(position).getAdded();
+        }
+        return RecyclerView.NO_ID;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -139,7 +150,15 @@ public class AdapterDrops extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             mRealm.commitTransaction();
             notifyItemRemoved(position);
         }
+        resetFilterIfEmpty();
     }
+
+    private void resetFilterIfEmpty() {
+        if(mResults.isEmpty() &&(mFilterOption == Filter.COMPLETE || mFilterOption == Filter.INCOMPLETE)){
+          mResetListener.onReset();
+        }
+    }
+
 
     public void markComplete(int position) {
         if (position < mResults.size()) {

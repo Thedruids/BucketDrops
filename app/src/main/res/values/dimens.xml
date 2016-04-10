@@ -20,6 +20,8 @@
     <dimen name="tv_title_vertical_margin">36dp</dimen>
     <dimen name="tv_title_font_size">18sp</dimen>
     <dimen name="tv_no_items_vertical_padding">22dp</dimen>
+    <dimen name="bucket_picker_icon_size">96dp</dimen>
+    <dimen name="bg_picker_item_corner_radius">4dp</dimen>
 
 
 </resources>
