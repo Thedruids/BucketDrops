@@ -28,7 +28,6 @@ import thomas.bucketdrops.adapters.ResetListener;
 import thomas.bucketdrops.adapters.SimpleTouchCallback;
 import thomas.bucketdrops.beans.Drop;
 import thomas.bucketdrops.widgets.BucketRecyclerView;
-import thomas.bucketdrops.widgets.DialogMark;
 
 public class ActivityMain extends AppCompatActivity {
 

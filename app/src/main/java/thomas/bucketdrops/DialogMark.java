@@ -1,4 +1,4 @@
-package thomas.bucketdrops.widgets;
+package thomas.bucketdrops;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import thomas.bucketdrops.R;
 import thomas.bucketdrops.adapters.CompleteListener;
 
 public class DialogMark extends DialogFragment {
