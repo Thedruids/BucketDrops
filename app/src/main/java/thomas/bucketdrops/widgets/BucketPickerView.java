@@ -1,13 +1,15 @@
 package thomas.bucketdrops.widgets;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +18,11 @@ import thomas.bucketdrops.R;
 
 
 public class BucketPickerView extends LinearLayout implements View.OnTouchListener {
+
+    public static final int LEFT = 0;
+    public static final int TOP = 1;
+    public static final int RIGHT = 2;
+    public static final int BOTTOM = 3;
 
 
     private Calendar mCalendar;
@@ -85,12 +92,15 @@ public class BucketPickerView extends LinearLayout implements View.OnTouchListen
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_date:
+                processEventsFor(mTextDate, event);
                 break;
             case R.id.tv_month:
+                processEventsFor(mTextMonth, event);
                 break;
             case R.id.tv_year:
+                processEventsFor(mTextYear, event);
                 break;
         }
 
@@ -98,8 +108,57 @@ public class BucketPickerView extends LinearLayout implements View.OnTouchListen
         return true;
     }
 
-    private void processEventsFor(TextView textView, MotionEvent event){
+    private void processEventsFor(TextView textView, MotionEvent event) {
+        Drawable[] drawables = textView.getCompoundDrawables();
 
+        if (hasDrawableTop(drawables) && hasDrawableBottom(drawables)) {
+
+            Rect topBounds = drawables[TOP].getBounds();
+            Rect bottomBounds = drawables[BOTTOM].getBounds();
+
+            float x = event.getX();
+            float y = event.getY();
+
+            if(topDrawableHit(textView, topBounds.height(), x, y)){
+
+                Toast.makeText(getContext(), "Top hit for "+ textView.getId(), Toast.LENGTH_SHORT).show();
+
+            } else if (bottomDrawableHit(textView, bottomBounds.height(), x, y)){
+
+                Toast.makeText(getContext(), "Bottom hit for "+ textView.getId(), Toast.LENGTH_SHORT).show();
+
+            }  else {
+
+            }
+
+        }
+    }
+
+
+
+    private boolean topDrawableHit(TextView textView, int drawableHeight, float x, float y) {
+        int xmin = textView.getPaddingLeft();
+        int xmax = textView.getWidth() - textView.getPaddingRight();
+        int ymin = textView.getPaddingTop();
+        int ymax = textView.getPaddingTop() + drawableHeight;
+        return x > xmin && x < xmax && y > ymin && y < ymax;
+    }
+
+    private boolean bottomDrawableHit(TextView textView, int drawableHeight, float x, float y) {
+        int xmin = textView.getPaddingLeft();
+        int xmax = textView.getWidth() - textView.getPaddingRight();
+        int ymax = textView.getHeight() - textView.getPaddingBottom();
+        int ymin = ymax - drawableHeight;
+        return x > xmin && x < xmax && y > ymin && y < ymax;
 
     }
+
+    private boolean hasDrawableTop(Drawable[] drawables) {
+        return drawables[TOP] != null;
+    }
+
+    private boolean hasDrawableBottom(Drawable[] drawables) {
+        return drawables[BOTTOM] != null;
+    }
+
 }
