@@ -4,4 +4,8 @@
     <string name="hint_et_drop">What is it?</string>
     <string name="str_add_it">Add it</string>
     <string name="str_no_items">No Items To Display</string>
+    <string name="sans_serif_thin">sans-serif-thin</string>
+    <string name="notif_message">You are nearing your goal</string>
+    <string name="notif_long_message">"Congratulations, you are on the verge of completing your goal "</string>
+    <string name="notif_title">Achievement</string>
 </resources>

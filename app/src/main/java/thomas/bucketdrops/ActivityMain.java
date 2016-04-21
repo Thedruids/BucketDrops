@@ -1,6 +1,9 @@
 package thomas.bucketdrops;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +30,10 @@ import thomas.bucketdrops.adapters.MarkListener;
 import thomas.bucketdrops.adapters.ResetListener;
 import thomas.bucketdrops.adapters.SimpleTouchCallback;
 import thomas.bucketdrops.beans.Drop;
+import thomas.bucketdrops.services.NotificationService;
 import thomas.bucketdrops.widgets.BucketRecyclerView;
+
+import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -80,6 +86,11 @@ public class ActivityMain extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         //This is the method call for the glide background initialisation.
         initBackgroundImage();
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        manager.setInexactRepeating(ELAPSED_REALTIME_WAKEUP, 1000, 5000, pendingIntent);
+
     }
 
     private RealmChangeListener mChangeListener = new RealmChangeListener() {

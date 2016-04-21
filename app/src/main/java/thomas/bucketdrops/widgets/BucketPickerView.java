@@ -3,9 +3,13 @@ package thomas.bucketdrops.widgets;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import thomas.bucketdrops.AppBucketDrops;
 import thomas.bucketdrops.R;
 
 
@@ -33,6 +38,12 @@ public class BucketPickerView extends LinearLayout implements View.OnTouchListen
     private TextView mTextMonth;
     private TextView mTextYear;
     private SimpleDateFormat mFormatter;
+
+
+    private Drawable mUpNormal;
+    private Drawable mUpPressed;
+    private Drawable mDownNormal;
+    private Drawable mDownPressed;
 
     private boolean mIncrement;
     private boolean mDecrement;
@@ -78,6 +89,36 @@ public class BucketPickerView extends LinearLayout implements View.OnTouchListen
         View view = LayoutInflater.from(context).inflate(R.layout.bucket_picker_view, this);
         mCalendar = Calendar.getInstance();
         mFormatter = new SimpleDateFormat("MMM");
+        mUpNormal = ContextCompat.getDrawable(context, R.drawable.up_normal);
+        mUpPressed = ContextCompat.getDrawable(context, R.drawable.up_pressed);
+        mDownNormal = ContextCompat.getDrawable(context, R.drawable.down_normal);
+        mDownPressed = ContextCompat.getDrawable(context, R.drawable.down_pressed);
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Log.d("Thomas", "onSaveInstanceState: ");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("super", super.onSaveInstanceState());
+        bundle.putInt("date", mCalendar.get(Calendar.DATE));
+        bundle.putInt("month", mCalendar.get(Calendar.MONTH));
+        bundle.putInt("year", mCalendar.get(Calendar.YEAR));
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        Log.d("Thomas", "onRestoreInstanceState: ");
+        if (state instanceof Parcelable) {
+            Bundle bundle = (Bundle) state;
+            state = bundle.getParcelable("super");
+            int date = bundle.getInt("date");
+            int month = bundle.getInt("month");
+            int year = bundle.getInt("year");
+            update(date, month, year, 0, 0, 0);
+        }
+
+        super.onRestoreInstanceState(state);
     }
 
     @Override
@@ -86,6 +127,7 @@ public class BucketPickerView extends LinearLayout implements View.OnTouchListen
         mTextDate = (TextView) this.findViewById(R.id.tv_date);
         mTextMonth = (TextView) this.findViewById(R.id.tv_month);
         mTextYear = (TextView) this.findViewById(R.id.tv_year);
+        AppBucketDrops.setRalewayRegular(getContext(), mTextDate, mTextMonth, mTextYear);
 
         mTextDate.setOnTouchListener(this);
         mTextMonth.setOnTouchListener(this);

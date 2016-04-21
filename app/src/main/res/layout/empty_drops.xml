@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="@dimen/iv_logo_size"
-        android:layout_height="@dimen/iv_logo_size"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/iv_logo_margin"
-        android:src="@drawable/logolarge" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- The background references an XML file which will make the button transparent as well as change the border color -->
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_logo"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/btn_add_it_margin"
-        android:background="@drawable/bg_btn_add_it"
-        android:fontFamily="sans-serif-thin"
-        android:paddingBottom="@dimen/btn_add_it_bottom_padding"
-        android:paddingLeft="@dimen/btn_add_it_padding_left"
-        android:paddingRight="@dimen/btn_add_it_padding_right"
-        android:paddingTop="@dimen/btn_add_it_padding_top"
-        android:text="@string/str_add_drop"
-        android:textAllCaps="false"
-        android:textColor="@color/btn_add_color"
-        android:textSize="@dimen/btn_add_it_text_size" />
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/iv_logo_size"
+            android:layout_height="@dimen/iv_logo_size"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/iv_logo_margin"
+            android:src="@drawable/logolarge" />
 
-</RelativeLayout>
+        <!-- The background references an XML file which will make the button transparent as well as change the border color -->
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/btn_add_it_margin"
+            android:background="@drawable/bg_btn_add_it"
+            android:fontFamily="sans-serif-thin"
+            android:paddingBottom="@dimen/btn_add_it_bottom_padding"
+            android:paddingLeft="@dimen/btn_add_it_padding_left"
+            android:paddingRight="@dimen/btn_add_it_padding_right"
+            android:paddingTop="@dimen/btn_add_it_padding_top"
+            android:text="@string/str_add_drop"
+            android:textAllCaps="false"
+            android:textColor="@color/btn_add_color"
+            android:textSize="@dimen/btn_add_it_text_size" />
+
+    </RelativeLayout>
+</ScrollView>

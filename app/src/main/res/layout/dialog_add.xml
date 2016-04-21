@@ -2,14 +2,16 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_dialog">
 
 
 
 <RelativeLayout
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@color/bg_dialog">
+    android:padding="24dp">
+
 
 
 <TextView
@@ -36,6 +38,7 @@ android:background="@color/bg_dialog">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/tv_title"
+    android:background="@drawable/bg_et_drop"
     android:singleLine="true"
     android:hint="@string/hint_et_drop"
     android:padding="16dp" />
@@ -52,6 +55,7 @@ android:background="@color/bg_dialog">
     android:id="@+id/btn_add_it"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_btn_add_it"
     android:layout_below="@+id/bpv_date"
     android:text="@string/str_add_it"
     android:textAllCaps="false" />

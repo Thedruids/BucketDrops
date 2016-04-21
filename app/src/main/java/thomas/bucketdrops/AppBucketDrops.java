@@ -3,7 +3,9 @@ package thomas.bucketdrops;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -34,6 +36,18 @@ public class AppBucketDrops extends Application {
         return filterOption;
     }
 
+    public static void setRalewayRegular(Context context, TextView textView) {
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/raleway_thin.ttf");
+        textView.setTypeface(typeface);
+    }
+
+    public static void setRalewayRegular(Context context, TextView... textView) {
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/raleway_thin.ttf");
+        for (TextView textView1 : textView){
+            textView1.setTypeface(typeface);
+        }
+
+    }
 
 
 
